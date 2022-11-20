@@ -1,0 +1,92 @@
+[
+  {
+    "line_test_regex": "^\\w+.+$",
+    "fields": [
+      {
+        "width": 11,
+        "name": "ID",
+        "position": 0
+      },
+      {
+        "width": 1,
+        "name": "SPACE",
+        "position": 1
+      },
+      {
+        "width": 8,
+        "name": "LATITUDE",
+        "position": 2
+      },
+      {
+        "width": 1,
+        "name": "SPACE",
+        "position": 3
+      },
+      {
+        "width": 9,
+        "name": "LONGITUDE",
+        "position": 4
+      },
+      {
+        "width": 1,
+        "name": "SPACE",
+        "position": 5
+      },
+      {
+        "width": 6,
+        "name": "ELEVATION",
+        "position": 6
+      },
+      {
+        "width": 1,
+        "name": "SPACE",
+        "position": 7
+      },
+      {
+        "width": 2,
+        "name": "STATE",
+        "position": 8
+      },
+      {
+        "width": 1,
+        "name": "SPACE",
+        "position": 9
+      },
+      {
+        "width": 30,
+        "name": "NAME",
+        "position": 10
+      },
+      {
+        "width": 1,
+        "name": "SPACE",
+        "position": 11
+      },
+      {
+        "width": 3,
+        "name": "GSN FLAG",
+        "position": 12
+      },
+      {
+        "width": 1,
+        "name": "SPACE",
+        "position": 12
+      },
+      {
+        "width": 3,
+        "name": "HCN/CRN FLAG",
+        "position": 13
+      },
+      {
+        "width": 1,
+        "name": "SPACE",
+        "position": 14
+      },
+      {
+        "width": 5,
+        "name": "WMO ID",
+        "position": 15
+      }
+    ]
+  }
+]
