@@ -11,10 +11,20 @@ import org.vorlyanskiy.fixwidthviz.config.TextColors;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FieldConfig {
+
+    /**
+     * Width of field
+     */
     private Integer width;
 
+    /**
+     * Name of field
+     */
     private String name;
 
+    /**
+     * Start position of current field in line
+     */
     @JsonIgnore
     private Integer positionInLine;
 
