@@ -27,9 +27,7 @@ public class CommandLineActions implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         Arrays.stream(args).
-                forEach(arg -> {
-                    workWithOneArg(arg);
-                });
+                forEach(this::workWithOneArg);
         transform();
     }
 

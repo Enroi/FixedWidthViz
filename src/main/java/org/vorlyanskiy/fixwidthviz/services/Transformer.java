@@ -8,16 +8,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+import org.vorlyanskiy.fixwidthviz.config.BackgroundColors;
 import org.vorlyanskiy.fixwidthviz.config.ConfigProducer;
+import org.vorlyanskiy.fixwidthviz.config.TextColors;
 import org.vorlyanskiy.fixwidthviz.lineconfigs.FieldConfig;
 import org.vorlyanskiy.fixwidthviz.lineconfigs.FieldValue;
 import org.vorlyanskiy.fixwidthviz.lineconfigs.LineConfig;
 import org.vorlyanskiy.fixwidthviz.lineconfigs.LineParsed;
 
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.IOException;
@@ -29,6 +29,7 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -43,10 +44,12 @@ public class Transformer {
 
     public void transform(Path sourceFile, Path destinationFile) throws IOException, TransformerException {
         Collection<LineConfig> lineConfigs = configProducer.getLineConfigs();
-        List<LineParsed> fieldValues = Files.lines(sourceFile)
-                .map(line -> convertToValue(lineConfigs, line))
-                .toList();
-        writeResult(fieldValues, destinationFile);
+        try (Stream<String> stringStream = Files.lines(sourceFile)) {
+            List<LineParsed> parsedLines = stringStream
+                    .map(line -> convertToValue(lineConfigs, line))
+                    .toList();
+            writeResult(parsedLines, destinationFile);
+        }
     }
 
     private void writeResult(List<LineParsed> fieldValues, Path destinationFile) throws IOException, TransformerException {
@@ -64,7 +67,9 @@ public class Transformer {
         byte[] bytesXml = xmlMapper.writerWithDefaultPrettyPrinter()
                 .writeValueAsBytes(fieldValues);
         Files.write(tempXml, bytesXml);
+        Runtime.getRuntime().exec("C:\\Program Files\\Notepad++\\notepad++.exe " + tempXml);
         transformToHtml(tempXml, destinationFile);
+        Runtime.getRuntime().exec("C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe " + destinationFile);
     }
 
     private void transformToHtml(Path tempXml, Path destinationFile) throws TransformerException, IOException {
@@ -94,10 +99,11 @@ public class Transformer {
     }
 
     private FieldValue convert(FieldConfig fieldConfig, String line) {
-        if (line.length() >= fieldConfig.getPositionInLine() + fieldConfig.getWidth()) {
-            return new FieldValue(fieldConfig, line.substring(fieldConfig.getPositionInLine(), fieldConfig.getPositionInLine() + fieldConfig.getWidth()));
-        } else if (line.length() >= fieldConfig.getPositionInLine()) {
-            return new FieldValue(fieldConfig, line.substring(fieldConfig.getPositionInLine()));
+        Integer positionInLine = fieldConfig.getPositionInLine();
+        if (line.length() >= positionInLine + fieldConfig.getWidth()) {
+            return new FieldValue(fieldConfig, line.substring(positionInLine, positionInLine + fieldConfig.getWidth()));
+        } else if (line.length() >= positionInLine) {
+            return new FieldValue(fieldConfig, line.substring(positionInLine));
         } else {
             return new FieldValue(fieldConfig, "");
         }
@@ -105,9 +111,8 @@ public class Transformer {
 
     private LineConfig getDefaultLineConfig(String line) {
         ArrayList<FieldConfig> fieldConfigs = new ArrayList<>(1);
-        fieldConfigs.add(new FieldConfig(line.length(), "Not Parsed", 0, 0));
-        LineConfig lineConfig = new LineConfig("", fieldConfigs);
-        return lineConfig;
+        fieldConfigs.add(new FieldConfig(line.length(), "Not Parsed", 0, BackgroundColors.white, TextColors.black));
+        return new LineConfig("", fieldConfigs);
     }
 
 }

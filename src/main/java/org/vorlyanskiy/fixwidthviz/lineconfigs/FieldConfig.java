@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.vorlyanskiy.fixwidthviz.config.BackgroundColors;
+import org.vorlyanskiy.fixwidthviz.config.TextColors;
 
 @Data
 @AllArgsConstructor
@@ -13,8 +15,10 @@ public class FieldConfig {
 
     private String name;
 
-    private Integer position;
-
     @JsonIgnore
     private Integer positionInLine;
+
+    private BackgroundColors backgroundColor;
+
+    private TextColors textColor;
 }

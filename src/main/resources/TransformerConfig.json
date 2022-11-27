@@ -4,88 +4,71 @@
     "fields": [
       {
         "width": 11,
-        "name": "ID",
-        "position": 0
+        "name": "ID"
       },
       {
         "width": 1,
-        "name": "SPACE",
-        "position": 1
+        "name": "SPACE"
       },
       {
         "width": 8,
-        "name": "LATITUDE",
-        "position": 2
+        "name": "LATITUDE"
       },
       {
         "width": 1,
-        "name": "SPACE",
-        "position": 3
+        "name": "SPACE"
       },
       {
         "width": 9,
-        "name": "LONGITUDE",
-        "position": 4
+        "name": "LONGITUDE"
       },
       {
         "width": 1,
-        "name": "SPACE",
-        "position": 5
+        "name": "SPACE"
       },
       {
         "width": 6,
-        "name": "ELEVATION",
-        "position": 6
+        "name": "ELEVATION"
       },
       {
         "width": 1,
-        "name": "SPACE",
-        "position": 7
+        "name": "SPACE"
       },
       {
         "width": 2,
-        "name": "STATE",
-        "position": 8
+        "name": "STATE"
       },
       {
         "width": 1,
-        "name": "SPACE",
-        "position": 9
+        "name": "SPACE"
       },
       {
         "width": 30,
-        "name": "NAME",
-        "position": 10
+        "name": "NAME"
       },
       {
         "width": 1,
-        "name": "SPACE",
-        "position": 11
+        "name": "SPACE"
       },
       {
         "width": 3,
-        "name": "GSN FLAG",
-        "position": 12
+        "name": "GSN FLAG"
       },
       {
         "width": 1,
-        "name": "SPACE",
-        "position": 12
+        "name": "SPACE"
       },
       {
         "width": 3,
-        "name": "HCN/CRN FLAG",
-        "position": 13
+        "name": "HCN/CRN FLAG"
       },
       {
         "width": 1,
-        "name": "SPACE",
-        "position": 14
+        "name": "SPACE"
       },
       {
         "width": 5,
-        "name": "WMO ID",
-        "position": 15
+        "name": "WMO ID"
       }
     ]
   }
