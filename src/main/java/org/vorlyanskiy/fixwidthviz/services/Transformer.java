@@ -53,23 +53,14 @@ public class Transformer {
     }
 
     private void writeResult(List<LineParsed> fieldValues, Path destinationFile) throws IOException, TransformerException {
-        Path jsonTempFile = Files.createTempFile("FixedWidthConverterResult.", ".json");
-        logger.info("Temp JSON file: %1$s".formatted(jsonTempFile));
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        byte[] bytes = objectMapper.writerWithDefaultPrettyPrinter()
-                .writeValueAsBytes(fieldValues);
-        Files.write(jsonTempFile, bytes);
-
         Path tempXml = Files.createTempFile("FixedWidthConverterResult.", ".xml");
         logger.info("Temp XML file: %1$s".formatted(tempXml));
         XmlMapper xmlMapper = new XmlMapper();
         byte[] bytesXml = xmlMapper.writerWithDefaultPrettyPrinter()
                 .writeValueAsBytes(fieldValues);
         Files.write(tempXml, bytesXml);
-        Runtime.getRuntime().exec("C:\\Program Files\\Notepad++\\notepad++.exe " + tempXml);
         transformToHtml(tempXml, destinationFile);
-        Runtime.getRuntime().exec("C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe " + destinationFile);
+        Files.delete(tempXml);
     }
 
     private void transformToHtml(Path tempXml, Path destinationFile) throws TransformerException, IOException {
